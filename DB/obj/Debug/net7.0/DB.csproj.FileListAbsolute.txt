@@ -1,0 +1,14 @@
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\bin\Debug\net7.0\DB.deps.json
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\bin\Debug\net7.0\DB.runtimeconfig.json
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\bin\Debug\net7.0\DB.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\bin\Debug\net7.0\DB.pdb
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.csproj.AssemblyReference.cache
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.AssemblyInfoInputs.cache
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.AssemblyInfo.cs
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.csproj.CoreCompileInputs.cache
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\refint\DB.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.pdb
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\DB.genruntimeconfig.cache
+C:\Users\Carlos.romero\Desktop\RestAPI\DB\obj\Debug\net7.0\ref\DB.dll
