@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB.Migrations
 {
     [DbContext(typeof(PetClinicContext))]
-    [Migration("20221219194301_myFirstMigration")]
-    partial class myFirstMigration
+    [Migration("20221220191326_Migraciondd")]
+    partial class Migraciondd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

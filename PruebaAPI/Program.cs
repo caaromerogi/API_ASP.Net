@@ -1,5 +1,7 @@
 using DB;
 using Microsoft.EntityFrameworkCore;
+using PruebaAPI.Helpers;
+using PruebaAPI.Services.OwnerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +11,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
 
+builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
 builder.Services.AddDbContext<PetClinicContext>(options => 
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PruebaAPIConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetAPIConnection"));
 });
 
 var app = builder.Build();
