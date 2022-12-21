@@ -2,6 +2,7 @@ using AutoMapper;
 using DB;
 using Microsoft.EntityFrameworkCore;
 using PruebaAPI.DTO;
+using PruebaAPI.Exceptions;
 
 namespace PruebaAPI.Services.OwnerService;
 
@@ -16,14 +17,6 @@ public class OwnerService : IOwnerService
         _mapper = mapper;
     }
 
-    public async Task<int> AddOwner(OwnerDTO owner)
-    {
-        Owner ownerEntity = _mapper.Map<OwnerDTO, Owner>(owner);
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     
-        
-        return await _context.SaveChangesAsync();
-    }
-
     public async Task<List<OwnerDTO>> GetOwners()
     {
         List<Owner> ownersEntity = await _context.Owners.Include(o => o.Pets).ToListAsync();
@@ -31,14 +24,35 @@ public class OwnerService : IOwnerService
         return ownersDTO;
     }
 
-    public Task UpdateOwner(int id, OwnerDTO owner)
+      public async Task<OwnerDTO> GetOwnerById(int id)
     {
-        throw new NotImplementedException();
+        var owner = await _context.Owners.FindAsync(id);
+        
+        if(owner is not null){
+            var ownerDTO = _mapper.Map<Owner, OwnerDTO>(owner);
+            return ownerDTO;
+        }
+
+        throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
     }
 
+    public async Task UpdateOwner(int id, OwnerDTO owner)
+    {
+        var ownerDTO = await GetOwnerById(id);
+    }
+
+    public async Task<int> AddOwner(OwnerDTO owner)
+    {
+        Owner ownerEntity = _mapper.Map<OwnerDTO, Owner>(owner);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     
+        
+        return await _context.SaveChangesAsync();
+    }
     
     public Task DeleteOwner(int id)
     {
         throw new NotImplementedException();
     }
+
+
 }
