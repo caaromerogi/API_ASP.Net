@@ -38,7 +38,17 @@ public class OwnerService : IOwnerService
 
     public async Task UpdateOwner(int id, OwnerDTO owner)
     {
-        var ownerDTO = await GetOwnerById(id);
+        var ownerEntity = await _context.Owners.FindAsync(id);
+        
+        if(ownerEntity is null){
+            throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
+        }
+
+        ownerEntity.FirstName = owner.FirstName;
+        ownerEntity.LastName = owner.LastName;
+        ownerEntity.Pets = _mapper.Map<ICollection<PetDTO>, ICollection<Pet>>(owner.Pets);
+        await _context.SaveChangesAsync();
+
     }
 
     public async Task<int> AddOwner(OwnerDTO owner)
@@ -49,9 +59,15 @@ public class OwnerService : IOwnerService
         return await _context.SaveChangesAsync();
     }
     
-    public Task DeleteOwner(int id)
+    public async Task DeleteOwner(int id)
     {
-        throw new NotImplementedException();
+        var owner = await _context.Owners.FindAsync(id);
+
+        if(owner is null){
+            throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
+        }
+        _context.Owners.Remove(owner);
+        await _context.SaveChangesAsync();
     }
 
 

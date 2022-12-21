@@ -44,6 +44,18 @@ namespace PruebaAPI.Controllers
             
             return BadRequest();
         }
+
+        [HttpPut("Put")]
+        public async Task<IActionResult> UpdateOwner(int id, OwnerDTO owner){
+            await _service.UpdateOwner(id, owner);
+            return Ok();
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteOwner(int id){
+            await _service.DeleteOwner(id);
+            return Ok();
+        }
     
     }
 }
