@@ -2,6 +2,7 @@ using DB;
 using Microsoft.EntityFrameworkCore;
 using PruebaAPI.Helpers;
 using PruebaAPI.Services.OwnerService;
+using PruebaAPI.Services.PetService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
+builder.Services.AddScoped<IPetService, PetService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
 builder.Services.AddDbContext<PetClinicContext>(options => 

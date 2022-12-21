@@ -36,6 +36,14 @@ public class OwnerService : IOwnerService
         throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
     }
 
+     public async Task<CreateOwnerDTO> AddOwner(CreateOwnerDTO owner)
+    {
+        Owner ownerEntity = _mapper.Map<CreateOwnerDTO, Owner>(owner);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     
+        await _context.SaveChangesAsync();
+        return owner;
+    }
+
     public async Task UpdateOwner(int id, OwnerDTO owner)
     {
         var ownerEntity = await _context.Owners.FindAsync(id);
@@ -49,14 +57,6 @@ public class OwnerService : IOwnerService
         ownerEntity.Pets = _mapper.Map<ICollection<PetDTO>, ICollection<Pet>>(owner.Pets);
         await _context.SaveChangesAsync();
 
-    }
-
-    public async Task<int> AddOwner(OwnerDTO owner)
-    {
-        Owner ownerEntity = _mapper.Map<OwnerDTO, Owner>(owner);
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     
-        
-        return await _context.SaveChangesAsync();
     }
     
     public async Task DeleteOwner(int id)
