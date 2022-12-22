@@ -27,20 +27,20 @@ public class OwnerService : IOwnerService
     public async Task<List<OwnerDTO>> GetOwners()
     {
         List<Owner> ownersEntity = await _context.Owners.Include(o => o.Pets).ToListAsync();
+
         List<OwnerDTO> ownersDTO = _mapper.Map<List<Owner>, List<OwnerDTO>>(ownersEntity);
         return ownersDTO;
     }
 
       public async Task<OwnerDTO> GetOwnerById(int id)
     {
-        var owner = await _context.Owners.FindAsync(id);
+        var owner = await _context.Owners.Include(o => o.Pets).FirstOrDefaultAsync(o => o.OwnerId == id);
         
-        if(owner is not null){
-            var ownerDTO = _mapper.Map<Owner, OwnerDTO>(owner);
-            return ownerDTO;
+        if(owner is null){
+            throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
         }
-
-        throw new ElementNotFoundException($"Cannot find the owner with ID:{id}");
+        var ownerDTO = _mapper.Map<Owner, OwnerDTO>(owner);
+        return ownerDTO;   
     }
 
      public async Task<CreateOwnerDTO> AddOwner(CreateOwnerDTO owner)
@@ -82,6 +82,5 @@ public class OwnerService : IOwnerService
         _context.Owners.Remove(owner);
         await _context.SaveChangesAsync();
     }
-
 
 }

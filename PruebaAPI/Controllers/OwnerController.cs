@@ -23,8 +23,13 @@ namespace PruebaAPI.Controllers
 
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllOwners(){
+            
+            List<OwnerDTO> owners = await _service.GetOwners();
 
-            return Ok(await _service.GetOwners());
+            if(owners.Count()==0){
+                return NoContent();
+            }
+            return Ok(owners);
         }
 
         [HttpGet("Get/{id}")]
@@ -37,7 +42,7 @@ namespace PruebaAPI.Controllers
             return Ok(await _service.AddOwner(owner));
         }
 
-        [HttpPut("Put")]
+        [HttpPut("Put/{id}")]
         public async Task<IActionResult> UpdateOwner(int id, OwnerDTO owner){
             await _service.UpdateOwner(id, owner);
             return Ok();

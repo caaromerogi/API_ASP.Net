@@ -21,10 +21,13 @@ public class PetClinicContext : DbContext
         modelBuilder.Entity<Owner>().HasKey(o => o.OwnerId);
         modelBuilder.Entity<Pet>().HasKey(p => p.PetID);
 
-        modelBuilder.Entity<Pet>().HasOne(p => p.Owner);
-        modelBuilder.Entity<Owner>().HasMany(o => o.Pets);
+        modelBuilder.Entity<Pet>()
+        .HasOne(p => p.Owner)
+        .WithMany(o => o.Pets)
+        .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Owner>().Property(p => p.FirstName).IsRequired();
+
     
     }
 }

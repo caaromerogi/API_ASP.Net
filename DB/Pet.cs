@@ -12,6 +12,6 @@ public class Pet
     public string Type { get; set; }
     public DateTime HospitalizeDate { get; set; }
     public DateTime DischargeDate { get; set; }
-    public int OwnerId { get; set; }
-    public virtual Owner Owner {get;set;}        
+    public int? OwnerId { get; set; }
+    public virtual Owner? Owner {get;set;}        
 }

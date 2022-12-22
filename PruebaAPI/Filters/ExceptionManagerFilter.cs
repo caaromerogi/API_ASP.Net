@@ -4,10 +4,10 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PruebaAPI.Exceptions;
-
+//Another way to controll exceptions https://stackoverflow.com/questions/38630076/asp-net-core-web-api-exception-handling
 namespace PruebaAPI.Filters;
 
-public class ExceptionManagerFilter: ExceptionFilterAttribute
+public class ExceptionManagerFilter : ExceptionFilterAttribute
 {
 
     public override void OnException(ExceptionContext context)
@@ -33,7 +33,15 @@ public class ExceptionManagerFilter: ExceptionFilterAttribute
                 Mensaje = invalidElementContext.Message,
                 Validaciones = errors
             });
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Conflict;
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        }
+
+        if(context.Exception is InconsistentDataException){
+            context.Result = new JsonResult(new {
+                Codigo = "0003",
+                Mensaje = context.Exception.Message,
+            });
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         }
     }
 }
