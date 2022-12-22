@@ -278,3 +278,6 @@ C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\obj\Debug\net7.0\refint\PruebaA
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\obj\Debug\net7.0\PruebaAPI.pdb
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\obj\Debug\net7.0\PruebaAPI.genruntimeconfig.cache
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\obj\Debug\net7.0\ref\PruebaAPI.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPI\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll

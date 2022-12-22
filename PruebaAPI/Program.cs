@@ -1,8 +1,12 @@
 using DB;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using PruebaAPI.DTO;
 using PruebaAPI.Helpers;
 using PruebaAPI.Services.OwnerService;
 using PruebaAPI.Services.PetService;
+using PruebaAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +16,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddValidatorsFromAssemblyContaining<OwnerValidator>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<IPetService, PetService>();
-
+//https://github.com/FluentValidation/FluentValidation/issues/1965
 builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
 builder.Services.AddDbContext<PetClinicContext>(options => 
 {

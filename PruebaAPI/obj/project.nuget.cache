@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "f0Bafd50nqMdWK3x45JOQOIvxStcSajwpDbpPuNtoUCUF1XfHOXLp7ks6mERQp9jKqJLANPAuzwmu4sGxcKuCQ==",
+  "dgSpecHash": "g91GhqvpgZFpOKFkbjude6kcoDTPjB+o8qghiSOD8aqwPYDK95zAjyw6WbafRHsh7Pw72zgQCEy9Y5EfumoW7g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Carlos.romero\\Desktop\\RestAPI\\PruebaAPI\\PruebaAPI.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,9 @@
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation\\11.2.1\\fluentvalidation.11.2.1.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.1\\fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",

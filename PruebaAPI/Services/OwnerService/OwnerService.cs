@@ -1,5 +1,7 @@
 using AutoMapper;
 using DB;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using PruebaAPI.DTO;
 using PruebaAPI.Exceptions;
@@ -10,11 +12,16 @@ public class OwnerService : IOwnerService
 {
     private readonly PetClinicContext _context;
     private readonly IMapper _mapper;
+    private readonly IValidator<CreateOwnerDTO> _validator;
 
-    public OwnerService(PetClinicContext context, IMapper mapper)
+    public OwnerService(
+        PetClinicContext context, 
+        IMapper mapper, 
+        IValidator<CreateOwnerDTO> validator)
     {
         _context = context;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public async Task<List<OwnerDTO>> GetOwners()
@@ -37,7 +44,13 @@ public class OwnerService : IOwnerService
     }
 
      public async Task<CreateOwnerDTO> AddOwner(CreateOwnerDTO owner)
-    {
+    {   
+        var validationResult = await _validator.ValidateAsync(owner);
+
+        if(!validationResult.IsValid){
+            var errors = validationResult.Errors;
+            throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments ", errors);
+        }
         Owner ownerEntity = _mapper.Map<CreateOwnerDTO, Owner>(owner);
         Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     
         await _context.SaveChangesAsync();

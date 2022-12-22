@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jZ60FihRd9EfzkbuzVq/mPjJNeIfv4g3OkUHFjMOe/J5pJeSsqDgarooOxNRdwIvuWve6iw5OC2H9OLyzEMaog==",
+  "dgSpecHash": "tosPIma9kMN/YQ78qR8IPfz2QrAI1eZbw63L7fd15Ihvulir+Le1UURJzeIA8XBopj5lZRrX1jNdOYDLgNCxYw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Carlos.romero\\Desktop\\RestAPI\\PruebaAPITests\\PruebaAPITests.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation\\11.2.1\\fluentvalidation.11.2.1.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\Carlos.romero\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.1\\fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
     "C:\\Users\\Carlos.romero\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",

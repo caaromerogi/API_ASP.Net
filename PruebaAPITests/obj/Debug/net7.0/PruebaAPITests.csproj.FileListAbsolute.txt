@@ -353,3 +353,6 @@ C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\obj\Debug\net7.0\PruebaAPI
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\obj\Debug\net7.0\ref\PruebaAPITests.dll
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\Castle.Core.dll
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\Moq.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll

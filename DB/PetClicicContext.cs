@@ -23,6 +23,8 @@ public class PetClinicContext : DbContext
 
         modelBuilder.Entity<Pet>().HasOne(p => p.Owner);
         modelBuilder.Entity<Owner>().HasMany(o => o.Pets);
+
+        modelBuilder.Entity<Owner>().Property(p => p.FirstName).IsRequired();
     
     }
 }
