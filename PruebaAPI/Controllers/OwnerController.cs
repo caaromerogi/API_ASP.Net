@@ -10,7 +10,6 @@ namespace PruebaAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [TypeFilter(typeof(ExceptionManagerFilter))]
     public class OwnerController : ControllerBase
     {
 

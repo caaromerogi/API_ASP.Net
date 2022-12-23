@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using PruebaAPI.Exceptions;
 //Another way to controll exceptions https://stackoverflow.com/questions/38630076/asp-net-core-web-api-exception-handling
 namespace PruebaAPI.Filters;
-
+[Obsolete("This is the first implementation of Exception Handler. Now, is used ErrorHandlerMiddleware")]
 public class ExceptionManagerFilter : ExceptionFilterAttribute
 {
 

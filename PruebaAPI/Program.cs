@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using PruebaAPI.DTO;
 using PruebaAPI.Helpers;
+using PruebaAPI.Middleware;
 using PruebaAPI.Services.OwnerService;
 using PruebaAPI.Services.PetService;
 using PruebaAPI.Validators;
@@ -28,11 +29,14 @@ builder.Services.AddDbContext<PetClinicContext>(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<PetClinicContext>();
     context.Database.Migrate();
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
