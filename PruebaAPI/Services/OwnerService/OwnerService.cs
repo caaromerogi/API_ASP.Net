@@ -29,6 +29,7 @@ public class OwnerService : IOwnerService
         List<Owner> ownersEntity = await _context.Owners.Include(o => o.Pets).ToListAsync();
 
         List<OwnerDTO> ownersDTO = _mapper.Map<List<Owner>, List<OwnerDTO>>(ownersEntity);
+        
         return ownersDTO;
     }
 
@@ -43,7 +44,7 @@ public class OwnerService : IOwnerService
         return ownerDTO;   
     }
 
-     public async Task<CreateOwnerDTO> AddOwner(CreateOwnerDTO owner)
+    public async Task<CreateOwnerDTO> AddOwner(CreateOwnerDTO owner)
     {   
         var validationResult = await _validator.ValidateAsync(owner);
 

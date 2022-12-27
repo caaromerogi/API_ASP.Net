@@ -356,3 +356,11 @@ C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\Moq.dll
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\Moq.EntityFrameworkCore.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\MockQueryable.Core.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\MockQueryable.EntityFrameworkCore.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\MockQueryable.Moq.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\EntityFramework.SqlServer.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\EntityFramework.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\QueryInterceptor.EntityFramework.dll
+C:\Users\Carlos.romero\Desktop\RestAPI\PruebaAPITests\bin\Debug\net7.0\System.Interactive.Async.dll

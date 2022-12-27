@@ -10,14 +10,17 @@ namespace PruebaAPITests;
 
 public class OwnerTest
 {
-    //Inicializar dentro del constructor
-    public Mock<IOwnerService> ownerServiceMock = new Mock<IOwnerService>();
+    public Mock<IOwnerService> ownerServiceMock;
+
+    public OwnerTest(){
+        ownerServiceMock = new Mock<IOwnerService>();
+    }
 
     [Fact]
     public async Task GetAllOwners_Ok()
     {
         //Arrange
-        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilder().BuildList());
+        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilderDTO().BuildList());
         var controller = new OwnerController(ownerServiceMock.Object);
 
         //Act
@@ -32,7 +35,7 @@ public class OwnerTest
     public async Task GetAllOwners_AssertDataOK()
     {
         //Arrange
-        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilder().BuildList());
+        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilderDTO().BuildList());
         var controller = new OwnerController(ownerServiceMock.Object);
 
         //Act
@@ -51,7 +54,7 @@ public class OwnerTest
     [Fact]
     public async Task GetAllOwners_EmptyOk()
     {
-        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilder().BuildEmptyList());
+        ownerServiceMock.Setup(_ => _.GetOwners()).ReturnsAsync(new OwnerBuilderDTO().BuildEmptyList());
         var controller = new OwnerController(ownerServiceMock.Object);
 
         var result = await controller.GetAllOwners();
@@ -61,12 +64,10 @@ public class OwnerTest
 
     [Fact]
     public async Task GetOwnerById_OK(){
-        //It.any
-        int id = 1;
-        ownerServiceMock.Setup(_ => _.GetOwnerById(id)).ReturnsAsync(new OwnerBuilder().Build());
+        ownerServiceMock.Setup(_ => _.GetOwnerById(It.IsAny<int>())).ReturnsAsync(new OwnerBuilderDTO().Build());
         var controller = new OwnerController(ownerServiceMock.Object);
 
-        var result = await controller.GetOwnerById(id);
+        var result = await controller.GetOwnerById(It.IsAny<int>());
 
         Assert.IsType<OkObjectResult>(result);
 
@@ -75,13 +76,13 @@ public class OwnerTest
     [Fact]
     public async Task GetOwnerById_AssertDataOk(){
         int id = 2;
-        ownerServiceMock.Setup(_ => _.GetOwnerById(It.IsAny<int>())).ReturnsAsync(new OwnerBuilder().Build());
+        ownerServiceMock.Setup(_ => _.GetOwnerById(It.IsAny<int>())).ReturnsAsync(new OwnerBuilderDTO().Build());
         var controller = new OwnerController(ownerServiceMock.Object);
 
         var result = await controller.GetOwnerById(id);
         var objectResult = (OkObjectResult)result;
 
-        Assert.Equivalent(objectResult.Value, new OwnerBuilder().Build());
+        Assert.Equivalent(objectResult.Value, new OwnerBuilderDTO().Build());
     }
     
 }

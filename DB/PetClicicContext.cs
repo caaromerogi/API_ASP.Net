@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace DB;
-public class PetClinicContext : DbContext
+public class PetClinicContext : DbContext, IPetClinicContext
 {
     public PetClinicContext(DbContextOptions<PetClinicContext> options)
     :base(options)
@@ -9,8 +9,8 @@ public class PetClinicContext : DbContext
         
     }
 
-    public DbSet<Owner> Owners{get;set;}
-    public DbSet<Pet> Pets {get; set;}
+    public virtual DbSet<Owner> Owners{get;set;}
+    public virtual DbSet<Pet> Pets {get; set;}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,7 +27,5 @@ public class PetClinicContext : DbContext
         .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Owner>().Property(p => p.FirstName).IsRequired();
-
-    
     }
 }

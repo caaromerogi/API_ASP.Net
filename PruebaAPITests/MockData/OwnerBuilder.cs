@@ -1,16 +1,16 @@
-using PruebaAPI.DTO;
+using DB;
 
 namespace PruebaAPITests.MockData;
-//Convertir a un builder
+
 public class OwnerBuilder
 {
-    public OwnerDTO Build(){
-        return new OwnerDTO{
+    public Owner Build(){
+        return new Owner{
                 OwnerId = 12,
                 FirstName = "Henry",
                 LastName = "Romero",
-                Pets = new List<PetDTO>{
-                    new PetDTO{
+                Pets = new List<Pet>{
+                    new Pet{
                         PetID = 1,
                         Name = "Azul",
                         Type = "Dog",
@@ -21,14 +21,14 @@ public class OwnerBuilder
             };
     }
 
-    public List<OwnerDTO> BuildList(){
-        return new List<OwnerDTO>{
-            new OwnerDTO{
+    public List<Owner> BuildList(){
+        return new List<Owner>{
+            new Owner{
                 OwnerId = 12,
                 FirstName = "Henry",
                 LastName = "Romero",
-                Pets = new List<PetDTO>{
-                    new PetDTO{
+                Pets = new List<Pet>{
+                    new Pet{
                         PetID = 1,
                         Name = "Azul",
                         Type = "Dog",
@@ -37,36 +37,15 @@ public class OwnerBuilder
                     }
                 }
             },
-            new OwnerDTO{
+            new Owner{
                 FirstName = "Carlos",
                 LastName = "Romero",
-                Pets = new List<PetDTO>{}
+                Pets = new List<Pet>{}
             }
         };
     }
 
-    public  List<OwnerDTO> BuildEmptyList(){
-        return new List<OwnerDTO>();
-    }
-
-    public static OwnerDTO GetOwnerById(){
-        return new OwnerDTO{
-                OwnerId = 12,
-                FirstName = "Henry",
-                LastName = "Romero",
-                Pets = new List<PetDTO>{
-                    new PetDTO{
-                        PetID = 1,
-                        Name = "Azul",
-                        Type = "Dog",
-                        HospitalizeDate = new DateTime(2022,10,20),
-                        DischargeDate = new DateTime(2022,10,23)
-                    }
-                }
-            };
-    }
-
-    public static OwnerDTO? GetOwnerNull(){
-        return null;
+    public  List<Owner> BuildEmptyList(){
+        return new List<Owner>();
     }
 }
