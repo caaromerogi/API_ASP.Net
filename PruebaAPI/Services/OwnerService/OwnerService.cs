@@ -50,7 +50,7 @@ public class OwnerService : IOwnerService
 
         if(!validationResult.IsValid){
             var errors = validationResult.Errors;
-            throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments ", errors);
+            throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments", errors);
         }
         Owner ownerEntity = _mapper.Map<CreateOwnerDTO, Owner>(owner);
         Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Owner> o = await _context.AddAsync(ownerEntity);     

@@ -9,6 +9,10 @@ public class PetClinicContext : DbContext, IPetClinicContext
         
     }
 
+    public PetClinicContext()
+    {
+    }
+
     public virtual DbSet<Owner> Owners{get;set;}
     public virtual DbSet<Pet> Pets {get; set;}
 

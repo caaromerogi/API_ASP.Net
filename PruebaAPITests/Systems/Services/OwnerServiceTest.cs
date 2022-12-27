@@ -1,7 +1,8 @@
-using System.Data.Entity.Infrastructure;
+
 using AutoMapper;
 using DB;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -10,10 +11,11 @@ using MockQueryable.Moq;
 using Moq;
 using Moq.EntityFrameworkCore;
 using PruebaAPI.DTO;
+using PruebaAPI.Exceptions;
 using PruebaAPI.Helpers;
 using PruebaAPI.Services.OwnerService;
 using PruebaAPITests.MockData;
-using PruebaAPITests.SetUp;
+
 
 namespace PruebaAPITests;
 //https://medium.com/@jonblankenship/global-exception-handling-in-asp-net-core-web-api-36668452844
@@ -23,11 +25,13 @@ public class OwnerTestService
     private Mock<DbSet<Owner>> _set;
     private IMapper _mapper;
     private Mock<IValidator<CreateOwnerDTO>> _validator;
+    private Mock<PetClinicContext> _context_;
 
     public OwnerTestService()
     {
         //Inject mock dbcontext
         _context = new Mock<PetClinicContext>(new DbContextOptions<PetClinicContext>());
+        _context_ = new Mock<PetClinicContext>();
 
         //Inject mock set db
         _set = new Mock<DbSet<Owner>>();
@@ -48,7 +52,7 @@ public class OwnerTestService
         var ownersList = new OwnerBuilder().BuildList().AsQueryable();
         var expectedList = new OwnerBuilderDTO().BuildList();
 
-        _context.Setup(o => o.Owners).ReturnsDbSet(ownersList);
+        _context.Setup(_ => _.Owners).ReturnsDbSet(ownersList);
 
         var service = new OwnerService(_context.Object, _mapper, _validator.Object);
 
@@ -66,11 +70,11 @@ public class OwnerTestService
 
         var mock = owner.AsQueryable().BuildMockDbSet();
 
-        mock.Setup(x => x.FindAsync(It.IsAny<int>())).ReturnsAsync(_mapper.Map<OwnerDTO, Owner>(expectOwnerDTO));
+        mock.Setup(_ => _.FindAsync(It.IsAny<int>())).ReturnsAsync(_mapper.Map<OwnerDTO, Owner>(expectOwnerDTO));
 
-        _context.Setup(_ => _.Owners).Returns(mock.Object);
+        _context_.Setup(_ => _.Owners).Returns(mock.Object);
 
-        var service = new OwnerService(_context.Object, _mapper, _validator.Object);
+        var service = new OwnerService(_context_.Object, _mapper, _validator.Object);
 
         var result = await service.GetOwnerById(12);
 
@@ -80,13 +84,46 @@ public class OwnerTestService
         item =>Assert.Equal(expectOwnerDTO.Pets.First().Name, item.Name));
         Assert.Equal(expectOwnerDTO.OwnerId, result.OwnerId);
     }
+
+    [Fact]
+    public async Task GetOwnerById_NotFoundException()
+    {
+        var owner = new OwnerBuilder().BuildList();
+
+        var expectOwnerDTO = new OwnerBuilderDTO().Build();
+
+        var mock = owner.AsQueryable().BuildMockDbSet();
+
+        mock.Setup(_ => _.FindAsync(It.IsAny<int>()))
+        .Returns(null);
+
+        _context.Setup(_ => _.Owners).Returns(mock.Object);
+
+        var service = new OwnerService(_context.Object, _mapper, _validator.Object);
+
+        var ex = await Assert
+        .ThrowsAsync<ElementNotFoundException>(async ()=>await service.GetOwnerById(4));
+
+        //Another Way
+        /*
+        try
+        {
+            var result =await service.GetOwnerById(4);
+        }
+        catch (ElementNotFoundException excp)
+        {
+            Assert.Equal("Cannot find the owner with ID:4", excp.Message);
+        }
+        */     
+    }
     
     [Fact]
     public async Task PostOwner_Ok(){
+        //SetDB
         var owner = new OwnerBuilder().BuildList();
-
+        //La entidad a guardar
         var ownerToAdd = new OwnerBuilder().Build();
-
+        //DTO que ingresa al servicio
         var ownerDTOToAdd = new CreateOwnerDTOBuilder().Build();
 
         var mock = owner.AsQueryable().BuildMockDbSet();
@@ -99,8 +136,8 @@ public class OwnerTestService
         (new InternalEntityEntry(
             new Mock<IStateManager>().Object,
             new RuntimeEntityType("Owner",typeof(Owner), false, null, null, null,
-             ChangeTrackingStrategy.Snapshot,null,false, null),
-             o
+            ChangeTrackingStrategy.Snapshot,null,false, null),
+            o
         ))));
         
         _context.Setup(_ => _.Owners).Returns(mock.Object);
@@ -110,12 +147,66 @@ public class OwnerTestService
         _validator.Setup(_ => _.ValidateAsync(It.IsAny<CreateOwnerDTO>(), It.IsAny<CancellationToken>()))
         .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
-
         var service = new OwnerService(_context.Object, _mapper, _validator.Object);
         
         var result = await service.AddOwner(ownerDTOToAdd);
 
        Assert.Equivalent(ownerDTOToAdd, result);
+    }
+
+    [Fact]
+    public async Task CreateOwnerMock(){
+        //SetDB
+        var owner = new OwnerBuilder().BuildList();
+        //La entidad a guardar
+        var ownerToAdd = new OwnerBuilder().Build();
+        //DTO que ingresa al servicio
+        var ownerDTOToAdd = new CreateOwnerDTOBuilder().Build();
+
+        var mock = owner.AsQueryable().BuildMockDbSet();
+
+        _context.Setup(_ => _.Owners).Returns(mock.Object);
+
+        _validator.Setup(_ => _.ValidateAsync(It.IsAny<CreateOwnerDTO>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new FluentValidation.Results.ValidationResult());
+
+        var service = new OwnerService(_context.Object, _mapper,_validator.Object);
+
+        var result = await service.AddOwner(ownerDTOToAdd);
+
+        Assert.Equivalent(ownerDTOToAdd, result);
+        
+    }
+
+    [Fact]
+    public async Task PostOwner_ValidationFail()
+    {
+        //SetDB
+        var owner = new OwnerBuilder().BuildList();
+        //La entidad a guardar
+        var ownerToAdd = new OwnerBuilder().Build();
+        //DTO que ingresa al servicio
+        var ownerDTOToAdd = new CreateOwnerDTOBuilder().Build();
+
+        var mock = owner.AsQueryable().BuildMockDbSet();
+
+        _context.Setup(_ => _.Owners).Returns(mock.Object);
+
+        _validator.Setup(_ => _.ValidateAsync(It.IsAny<CreateOwnerDTO>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new ValidationResult(
+            new List<ValidationFailure>(){
+                new ValidationFailure("FirstName", "Invalid arguments")
+            }
+            ));
+        
+        var service = new OwnerService(_context.Object, _mapper,_validator.Object);
+
+        var ex = await Assert
+        .ThrowsAsync<InvalidElementException<List<ValidationFailure>>>(
+            async () => await service.AddOwner(ownerDTOToAdd)
+            );
+
+
     }
     
 

@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using FluentValidation.Results;
+using Newtonsoft.Json;
 using PruebaAPI.Error;
 using PruebaAPI.Exceptions;
 
@@ -31,8 +32,11 @@ public class ErrorHandlerMiddleware
                 case ElementNotFoundException:
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    var errorModelNotFound = new ErrorModelBuilder().WithErrorCode("01").WithMessage(ex.Message).Build();
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(errorModelNotFound));
+                    var errorModelNotFound = new ErrorModelBuilder()
+                    .WithErrorCode("01")
+                    .WithMessage(ex.Message)
+                    .Build();
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(errorModelNotFound));
                     break;
                 //TODO: Making error more flexible to include the validation answers
                 case InvalidElementException<List<ValidationFailure>> invalidElementContext:
@@ -45,17 +49,22 @@ public class ErrorHandlerMiddleware
                         errors.Add(casterror.PropertyName, casterror.ErrorMessage);    
                     }
 
-                    var errorModelBadRequest = new ErrorModelBuilder().WithErrorCode("02").WithMessage(ex.Message + JsonSerializer.Serialize(errors)).Build();
+                    var errorModelBadRequest = new ErrorModelBuilder()
+                    .WithErrorCode("02")
+                    .WithMessage(ex.Message)
+                    .WithAdditionalInf(errors)
+                    .Build();
+                    
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(errorModelBadRequest));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(errorModelBadRequest));
 
                     break;
                 case InconsistentDataException:
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     var errorModelInconsistentData = new ErrorModelBuilder().WithErrorCode("03").WithMessage(ex.Message).Build();
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(errorModelInconsistentData));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(errorModelInconsistentData));
                     break;
             }
         }
