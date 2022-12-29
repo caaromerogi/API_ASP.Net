@@ -38,6 +38,7 @@ public class OwnerBuilder
                 }
             },
             new Owner{
+                OwnerId = 1,
                 FirstName = "Carlos",
                 LastName = "Romero",
                 Pets = new List<Pet>{}
@@ -47,5 +48,22 @@ public class OwnerBuilder
 
     public  List<Owner> BuildEmptyList(){
         return new List<Owner>();
+    }
+
+    public Owner BuildUpdate(){
+        return new Owner{
+                OwnerId = 12,
+                FirstName = "Jose",
+                LastName = "Gil",
+                Pets = new List<Pet>{
+                    new Pet{
+                        PetID = 1,
+                        Name = "Azul",
+                        Type = "Dog",
+                        HospitalizeDate = new DateTime(2022,10,20),
+                        DischargeDate = new DateTime(2022,10,23)
+                    }
+                }
+            }; 
     }
 }

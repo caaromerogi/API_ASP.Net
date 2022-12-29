@@ -38,6 +38,7 @@ public class OwnerBuilderDTO
                 }
             },
             new OwnerDTO{
+                OwnerId = 1,
                 FirstName = "Carlos",
                 LastName = "Romero",
                 Pets = new List<PetDTO>{}
@@ -47,6 +48,23 @@ public class OwnerBuilderDTO
 
     public  List<OwnerDTO> BuildEmptyList(){
         return new List<OwnerDTO>();
+    }
+
+    public OwnerDTO BuildUpdate(){
+        return new OwnerDTO{
+                OwnerId = 12,
+                FirstName = "Jose",
+                LastName = "Gil",
+                Pets = new List<PetDTO>{
+                    new PetDTO{
+                        PetID = 1,
+                        Name = "Azul",
+                        Type = "Dog",
+                        HospitalizeDate = new DateTime(2022,10,20),
+                        DischargeDate = new DateTime(2022,10,23)
+                    }
+                }
+            }; 
     }
 
 }
